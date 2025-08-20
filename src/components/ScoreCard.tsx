@@ -1,52 +1,37 @@
-"use client";
+import React from 'react';
+import { Evaluation } from '@/types/interview';
 
-export default function ScoreCard({ data }: { data: any }) {
-  if (!data) return null;
-  const r = data.rubric || {};
-  const Row = ({ label, val }: { label: string; val: number }) => (
-    <div className="flex items-center gap-3">
-      <div className="w-40 text-sm text-slate-600">{label}</div>
-      <div className="flex-1 h-2 rounded bg-slate-200">
-        <div className="h-2 rounded bg-black" style={{ width: `${(Math.max(0, Math.min(5, val)) / 5) * 100}%` }} />
-      </div>
-      <div className="w-10 text-right text-sm">{val ?? "-"}</div>
-    </div>
-  );
+interface ScoreCardProps {
+  evaluation: Evaluation;
+}
+
+export default function ScoreCard({ evaluation }: ScoreCardProps) {
   return (
-    <div className="space-y-3">
-      <div className="text-lg font-semibold">Score: {data.overall_score ?? "-"}/100</div>
-      <div className="space-y-2">
-        <Row label="Structure" val={r.structure ?? 0} />
-        <Row label="Clarity" val={r.clarity ?? 0} />
-        <Row label="Product Thinking" val={r.product_thinking ?? 0} />
-        <Row label="Metrics" val={r.metrics ?? 0} />
-        <Row label="Communication" val={r.communication ?? 0} />
+    <div className="rounded-xl border p-4 space-y-2">
+      <div className="flex items-center justify-between">
+        <h3 className="font-semibold">Score</h3>
+        <div className="text-xl font-bold">{evaluation.score}/100</div>
       </div>
-
-      {data.strengths?.length ? (
-        <div>
-          <div className="font-medium mt-2">Strengths</div>
-          <ul className="list-disc pl-5 text-sm text-slate-700">
-            {data.strengths.map((s: string, i: number) => <li key={i}>{s}</li>)}
-          </ul>
+      {evaluation.rubric && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+          <div className="rounded-md bg-gray-50 p-2">
+            <div className="text-gray-500">Structure</div>
+            <div className="font-medium">{evaluation.rubric.structure}/5</div>
+          </div>
+          <div className="rounded-md bg-gray-50 p-2">
+            <div className="text-gray-500">Clarity</div>
+            <div className="font-medium">{evaluation.rubric.clarity}/5</div>
+          </div>
+          <div className="rounded-md bg-gray-50 p-2">
+            <div className="text-gray-500">Product Sense</div>
+            <div className="font-medium">{evaluation.rubric.productSense}/5</div>
+          </div>
+          <div className="rounded-md bg-gray-50 p-2">
+            <div className="text-gray-500">Communication</div>
+            <div className="font-medium">{evaluation.rubric.communication}/5</div>
+          </div>
         </div>
-      ) : null}
-
-      {data.gaps?.length ? (
-        <div>
-          <div className="font-medium mt-2">Gaps</div>
-          <ul className="list-disc pl-5 text-sm text-slate-700">
-            {data.gaps.map((s: string, i: number) => <li key={i}>{s}</li>)}
-          </ul>
-        </div>
-      ) : null}
-
-      {data.coaching ? (
-        <div className="mt-2">
-          <div className="font-medium">Coaching</div>
-          <p className="text-sm text-slate-700 whitespace-pre-wrap">{data.coaching}</p>
-        </div>
-      ) : null}
+      )}
     </div>
   );
 }
