@@ -1,0 +1,32 @@
+{
+  "name": "pm-mock",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init"
+  },
+  "dependencies": {
+    "next": "15.5.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "openai": "^4.56.0",
+    "prisma": "^5.18.0",
+    "@prisma/client": "^5.18.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^9.9.0",
+    "eslint-config-next": "15.5.0",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.9",
+    "typescript": "^5.5.4"
+  }
+}
